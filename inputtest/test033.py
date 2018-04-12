@@ -1,3 +1,4 @@
+#-*-coding:utf-8 -*-
 # __author liuming
 # 2018-04-12
 

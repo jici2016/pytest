@@ -1,28 +1,30 @@
+#!/bin/env python3
 #-*-coding:utf-8 -*-
-# __author liuming
-# 2018-04-12
+
 
 eg = '''
-int main(int argc,char **argv)
-{
-        printf("\033[44;37;5m hello world\033[0m\n");
-        return 0;
-}'''
+        print("\033[44;37;5m hello world\033[0m")
+'''
 print(eg)
 eg2=r'''
-代码分析
-实例：printf(“\033[1;33m Hello World. \033[0m \n”);
+\033[+ 参数1+;+ 参数2+; + 参数3+m
+参数1：代表背景色
+可选值及其含义：
 
-\033      [1;        33m           xxxx
+40-49：背景色
+40: 黑 41: 红 42: 绿 43: 黄  44: 蓝 45: 紫 46: 绿 47: 白
+参数2：代表字体色
+可选值及其含义：
 
- |         |          |             |
+30-39：字体颜色
+30: 黑 31: 红 32: 绿 33: 黄  34: 蓝 35: 紫 36: 绿 37: 白
+38:在缺省的前景颜色上设置下划线
+39:在缺省的前景颜色上关闭下划线
+参数3：代表显示效果 ，当不需要背景色，也可以用于参数1位置
 
-开始    背景色       字体色        字符串
-
-该段代码编译运行后显示的是蓝色背景，白色闪烁字的效果。
-解释下特殊字符的使用及定义：
-“\033”引导非常规字符序列。“m”意味着设置属性然后结束非常规字符序列
-“44;37;5”为蓝色，前景白色，闪烁光标的特殊字符代码。
+0:不使用效果     1:高亮(加深)显示    2:低亮(减弱)显示
+4:下划线         5:闪烁        7:反显(替换背景色和字体颜色)
+8:消隐
 '''
 print(eg2)
 c = r'''
@@ -99,7 +101,6 @@ Lock)
 　　发蜂鸣生beep
 
 '''
-# print(c)
 colors = {
     'none': "\033[0m",
     'black': "\033[0;30m",
@@ -108,7 +109,7 @@ colors = {
     'dark_blue': "\033[1;34m",
     'green': "\033[0;32m",
     'dark_green': "\033[1;32m",
-'light_green': "\033[2;32m",
+    'light_green': "\033[2;32m",
     'cyan': "\033[0;36m",
     'dark_cyan': "\033[1;36m",
     'red': "\033[0;31m",
@@ -135,10 +136,14 @@ sp = {
     'show': '\033[?25h',  # 显示光标
 
 }
-input('\033[46;35;22m hahaha\007')
+print('\033[41;32;5m 闪光\033[0m') #闪光字符，在windows里面没有测试出效果，在pycharm里面没有效果，在linux里面测试出效果
+print('\007响一声！\033[0m') #发出声音 在windows里面测试出效果，在pycharm里面没有效果，在linux里面测试出效果
+print('\033[43;34;4m 下划线\033[0m')
+print('\033[45;36;7m 反显\033[0m')
+print('\033[47;31;8m 消隐\033[0m') #看不到了
+
 
 print('%s hello %s world%s' % (colors['blue'], colors['red'], colors['none']))
-# for key,value in colors.items():
-#     print("%s%s-----%s"%(value,key,colors['none']))
 for i, item in enumerate(colors):
-    print(i, '%s%s- a quick brown fox jump over the lazy dog%s' % (item, colors[item], colors['none']))
+    print(i, '%s%s- The quick brown fox jump over a lazy dog%s' % (item, colors[item], colors['none']))
+
